@@ -1,5 +1,5 @@
 import './category.styles.scss';
-import {CategoryItem} from '../../types/interfaces';
+import {CategoryItem} from '@models/interfaces';
 
 export default function Category(props: { category: CategoryItem }) {
   const { id, title, imageUrl } = props.category;

@@ -1,6 +1,6 @@
 import './directory.styles.scss';
-import {CategoryItem} from '../../types/interfaces';
-import Category from '../category/category.component';
+import {CategoryItem} from '@models/interfaces';
+import Category from '@components/category/category.component';
 
 export default function Directory(props: { categories: CategoryItem[] }) {
   const { categories } = props;
