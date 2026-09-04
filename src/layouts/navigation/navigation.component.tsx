@@ -1,5 +1,5 @@
-import {Fragment} from 'react';
-import {Link, Outlet} from 'react-router-dom';
+import { Fragment } from 'react';
+import { Link, Outlet } from 'react-router-dom';
 
 import './navigation.styles.scss';
 import { ReactComponent as CrwnLogo } from '@assets/images/crown.svg';
@@ -19,5 +19,5 @@ export default function Navigation() {
       </nav>
       <Outlet />
     </Fragment>
-  )
+  );
 }

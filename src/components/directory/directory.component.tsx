@@ -1,5 +1,5 @@
 import './directory.styles.scss';
-import {CategoryItem} from '@models/interfaces';
+import { CategoryItem } from '@models/interfaces';
 import Category from '@components/category/category.component';
 
 export default function Directory(props: { categories: CategoryItem[] }) {

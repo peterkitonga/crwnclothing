@@ -1,5 +1,5 @@
 import './category.styles.scss';
-import {CategoryItem} from '@models/interfaces';
+import { CategoryItem } from '@models/interfaces';
 
 export default function Category(props: { category: CategoryItem }) {
   const { id, title, imageUrl } = props.category;
@@ -12,5 +12,5 @@ export default function Category(props: { category: CategoryItem }) {
         <p>Shop Now</p>
       </div>
     </div>
-  )
+  );
 }
