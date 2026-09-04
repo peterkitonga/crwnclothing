@@ -1,5 +1,13 @@
 import './auth.styles.scss';
+import SignInForm from '@components/sign-in-form/sign-in-form.component';
+import SignUpForm from '@components/sign-up-form/sign-up-form.component';
 
 export default function Auth() {
-  return <main></main>;
+  return (
+    <main className={'auth-container'}>
+      <SignInForm />
+
+      <SignUpForm />
+    </main>
+  );
 }
