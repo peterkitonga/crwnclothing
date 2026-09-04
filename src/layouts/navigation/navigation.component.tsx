@@ -15,6 +15,9 @@ export default function Navigation() {
           <Link to={'/shop'} className={'nav-link'}>
             Shop
           </Link>
+          <Link to={'/auth'} className={'nav-link'}>
+            Sign In
+          </Link>
         </div>
       </nav>
       <Outlet />
