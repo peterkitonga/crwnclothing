@@ -1,11 +1,14 @@
 import { initializeApp } from 'firebase/app';
-import { doc, DocumentData, DocumentReference, getFirestore, getDoc, setDoc } from 'firebase/firestore';
+import { doc, DocumentReference, getFirestore, getDoc, setDoc } from 'firebase/firestore';
 import {
   createUserWithEmailAndPassword,
   getAuth,
   GoogleAuthProvider,
+  NextOrObserver,
+  onAuthStateChanged,
   signInWithPopup,
   signInWithEmailAndPassword,
+  signOut,
   User,
   UserCredential,
 } from 'firebase/auth';
@@ -32,7 +35,7 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 export const createUserDocFromAuth = async (
   userAuth: User,
   additionalInfo = {},
-): Promise<DocumentReference<DocumentData, DocumentData> | undefined> => {
+): Promise<DocumentReference | undefined> => {
   if (!userAuth) return;
 
   const userDocRef = doc(db, 'users', userAuth.uid);
@@ -69,3 +72,7 @@ export const signInAuthUserWithEmailAndPassword = async (
 
   return await signInWithEmailAndPassword(auth, email, password);
 };
+
+export const signOutUser = async (): Promise<void> => await signOut(auth);
+
+export const onAuthStateChangedListener = (callback: NextOrObserver<User>) => onAuthStateChanged(auth, callback);
