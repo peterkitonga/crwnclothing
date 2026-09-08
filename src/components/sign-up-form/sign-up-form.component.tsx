@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { FirebaseError } from 'firebase/app';
 import { UserCredential } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 import './sign-up-form.styles.scss';
 import { createAuthUserWithEmailAndPassword, createUserDocFromAuth } from '@utils/firebase.utils';
-import Button from '@components/button/button.component';
 import FormInput from '@components/form-input/form-input.component';
+import Button from '@components/button/button.component';
 
 export default function SignUpForm() {
   const defaultFormFields = {
@@ -15,6 +16,7 @@ export default function SignUpForm() {
     confirmPassword: '',
   };
   const [formFields, setFormFields] = useState(defaultFormFields);
+  const navigate = useNavigate();
 
   const resetFormFields = () => setFormFields(defaultFormFields);
 
@@ -38,6 +40,7 @@ export default function SignUpForm() {
         await createUserDocFromAuth(user, { displayName });
 
         resetFormFields();
+        navigate('/shop');
       } catch (err) {
         const error = err as FirebaseError;
 

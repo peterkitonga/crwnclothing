@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FirebaseError } from 'firebase/app';
+import { useNavigate } from 'react-router-dom';
 
 import './sign-in-form.styles.scss';
 import {
@@ -16,6 +17,7 @@ export default function SignInForm() {
     password: '',
   };
   const [formFields, setFormFields] = useState(defaultFormFields);
+  const navigate = useNavigate();
 
   const resetFormFields = () => setFormFields(defaultFormFields);
 
@@ -37,6 +39,7 @@ export default function SignInForm() {
         await signInAuthUserWithEmailAndPassword(email, password);
 
         resetFormFields();
+        navigate('/shop');
       } catch (err) {
         const error = err as FirebaseError;
 
@@ -53,9 +56,11 @@ export default function SignInForm() {
 
   const onAuthenticateGoogleUser = async () => {
     try {
-      const response = await signInWithGooglePopup();
+      const { user } = await signInWithGooglePopup();
 
-      await createUserDocFromAuth(response.user);
+      await createUserDocFromAuth(user);
+
+      navigate('/shop');
     } catch (e) {
       const error = e as FirebaseError;
 
