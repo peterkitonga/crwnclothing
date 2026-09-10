@@ -1,11 +1,11 @@
-import React, { createContext, useEffect, useState } from 'react';
+import { createContext, Dispatch, ReactNode, SetStateAction, useEffect, useState } from 'react';
 import { User } from 'firebase/auth';
 
 import { createUserDocFromAuth, onAuthStateChangedListener } from '@utils/firebase.utils';
 
 interface UserContextType {
   currentUser: User | null;
-  setCurrentUser: React.Dispatch<React.SetStateAction<User | null>>;
+  setCurrentUser: Dispatch<SetStateAction<User | null>>;
 }
 
 export const UserContext = createContext<UserContextType>({
@@ -13,7 +13,7 @@ export const UserContext = createContext<UserContextType>({
   setCurrentUser: () => null,
 });
 
-export const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
+export const UserContextProvider = ({ children }: { children: ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const value = { currentUser, setCurrentUser };
 
