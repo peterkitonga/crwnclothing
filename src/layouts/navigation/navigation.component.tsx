@@ -9,17 +9,22 @@ import { ReactComponent as CrwnLogo } from '@assets/images/crown.svg';
 import { signOutUser } from '@utils/firebase.utils';
 import { UserContext } from '@contexts/user.context';
 import { CartContext } from '@contexts/cart.context';
+import { useClickOutside } from '@hooks/click-outside.hook';
 
 export default function Navigation() {
   const navigate = useNavigate();
   const { currentUser } = useContext(UserContext);
-  const { isCartOpen } = useContext(CartContext);
+  const { isCartOpen, setIsCartOpen } = useContext(CartContext);
 
   const onSignOut = async () => {
     await signOutUser();
 
     navigate('/auth');
   };
+
+  const dropdownRef = useClickOutside(() => {
+    setIsCartOpen(false);
+  });
 
   return (
     <Fragment>
@@ -42,7 +47,7 @@ export default function Navigation() {
           )}
           <CartIcon />
         </div>
-        {isCartOpen && <CartDropdown />}
+        {isCartOpen && <CartDropdown ref={dropdownRef} />}
       </nav>
       {/* Child component routes render here */}
       <Outlet />

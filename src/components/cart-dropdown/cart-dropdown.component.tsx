@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { RefObject, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import './cart-dropdown.styles.scss';
@@ -7,14 +7,23 @@ import CartItem from '@components/cart-item/cart-item.component';
 
 import { CartContext } from '@contexts/cart.context';
 
-export default function CartDropdown() {
-  const navigate = useNavigate();
-  const { cartItems } = useContext(CartContext);
+interface CartDropdownType {
+  ref: RefObject<HTMLDivElement | null>;
+}
 
-  const onCheckout = () => navigate('/checkout');
+export default function CartDropdown(props: CartDropdownType) {
+  const { ref } = props;
+  const navigate = useNavigate();
+  const { cartItems, setIsCartOpen } = useContext(CartContext);
+
+  const onCheckout = () => {
+    navigate('/checkout');
+
+    setIsCartOpen(false);
+  };
 
   return (
-    <div className={'cart-dropdown-container'}>
+    <div ref={ref} className={'cart-dropdown-container'}>
       <div className={'cart-items'}>
         {cartItems.map((item) => (
           <CartItem key={item.id} cartItem={item} />
