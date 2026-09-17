@@ -1,6 +1,6 @@
 <div align="center">
-<h1>Crwn Clothing</h1>
-<p>An example clothing store created while learning React.js. Scaffolded using <a href="https://create-react-app.dev/">Create React App</a> and React v19.</p>
+  <h1>Crwn Clothing</h1>
+  <p>An example clothing store created while learning React.js. Scaffolded using <a href="https://create-react-app.dev/">Create React App</a> and React v19.</p>
 </div>
 
 ## Features
@@ -31,6 +31,12 @@ Set up the development environment variables by copying the `.env.example` into 
 
 ```bash
   cp .env.example .env.development.local
+```
+
+To have some sample data for testing, seed some sample data by running the script below
+
+```bash
+  npm run seed:products
 ```
 
 Install dependencies
