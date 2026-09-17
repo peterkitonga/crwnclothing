@@ -28,7 +28,7 @@ import { Product } from '@models/interfaces';
 initializeApp({
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: `${process.env.REACT_APP_FIREBASE_PROJECT_ID}.firebaseapp.com`,
-  projectId: `${process.env.REACT_APP_FIREBASE_PROJECT_ID}}`,
+  projectId: `${process.env.REACT_APP_FIREBASE_PROJECT_ID}`,
   storageBucket: `${process.env.REACT_APP_FIREBASE_PROJECT_ID}.firebasestorage.app`,
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
@@ -92,7 +92,7 @@ export const onAuthStateChangedListener = (callback: NextOrObserver<User>) => on
 
 export const addCategoriesAndDocuments = async (
   collectionKey: string,
-  objectsToAdd: [{ title: string; items: Product[] }],
+  objectsToAdd: { title: string; items: Product[] }[],
 ): Promise<void> => {
   const collectionRef = collection(db, collectionKey);
   const batch = writeBatch(db);
