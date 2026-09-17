@@ -3,10 +3,10 @@ import { useContext } from 'react';
 import './shop.styles.scss';
 import ProductCard from '@components/product-card/product-card.component';
 
-import { ProductsContext } from '@contexts/products.context';
+import { CategoriesContext } from '@contexts/categories.context';
 
 export default function Shop() {
-  const { products } = useContext(ProductsContext);
+  const { products } = useContext(CategoriesContext);
 
   return (
     <main className={'products-container'}>
