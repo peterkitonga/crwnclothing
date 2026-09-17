@@ -1,22 +1,31 @@
-import { createContext, Dispatch, ReactNode, SetStateAction, useState } from 'react';
+import { createContext, Dispatch, ReactNode, SetStateAction, useEffect, useState } from 'react';
 
 import { Product } from '@models/interfaces';
-
-import PRODUCTS from '../data/shop-data.json';
+import { getCategoriesAndDocuments } from '@utils/firebase.utils';
 
 interface CategoriesContextType {
-  products: Product[];
-  setProducts: Dispatch<SetStateAction<Product[]>>;
+  categoriesMap: { [key: string]: Product[] };
+  setCategoriesMap: Dispatch<SetStateAction<{ [key: string]: Product[] }>>;
 }
 
 export const CategoriesContext = createContext<CategoriesContextType>({
-  products: [],
-  setProducts: () => [],
+  categoriesMap: {},
+  setCategoriesMap: () => {},
 });
 
 export const CategoriesContextProvider = ({ children }: { children: ReactNode }) => {
-  const [products, setProducts] = useState<Product[]>(PRODUCTS);
-  const value = { products, setProducts };
+  const [categoriesMap, setCategoriesMap] = useState<{ [key: string]: Product[] }>({});
+  const value = { categoriesMap, setCategoriesMap };
+
+  useEffect(() => {
+    (async () => {
+      const categoriesMap = await getCategoriesAndDocuments();
+
+      setCategoriesMap(categoriesMap);
+    })();
+
+    return () => {};
+  }, []);
 
   return <CategoriesContext.Provider value={value}>{children}</CategoriesContext.Provider>;
 };
