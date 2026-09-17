@@ -9,7 +9,9 @@
 - [TypeScript](https://www.typescriptlang.org/) - For type safety and other awesome features not native to vanilla JavaScript.
 - [SASS](https://sass-lang.com/) - Preprocessor scripting language that is interpreted into Cascading Style Sheets(CSS).
 
-## Run Locally
+## Environment Setup
+
+The project requires Node v18+. Please ensure a minimum of Node v18 is installed.
 
 Clone the project
 
@@ -21,6 +23,14 @@ Go to the project directory
 
 ```bash
   cd crwnclothing
+```
+
+## Run Locally
+
+Set up the development environment variables by copying the `.env.example` into `.env.development.local` and update the values
+
+```bash
+  cp .env.example .env.development.local
 ```
 
 Install dependencies
@@ -37,7 +47,13 @@ Start the development server
 
 ## Deployment
 
-Install dependencies first
+Set up the production environment variables by copying the `.env.example` into `.env.production.local` and update the values
+
+```bash
+  cp .env.example .env.production.local
+```
+
+Install dependencies
 
 ```bash
   npm install
