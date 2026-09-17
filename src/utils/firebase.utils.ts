@@ -1,5 +1,15 @@
 import { initializeApp } from 'firebase/app';
-import { doc, DocumentReference, getFirestore, getDoc, setDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  DocumentReference,
+  getFirestore,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+  writeBatch,
+} from 'firebase/firestore';
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -12,15 +22,16 @@ import {
   User,
   UserCredential,
 } from 'firebase/auth';
+import { Product } from '@models/interfaces';
 
 // Initialize Firebase
 initializeApp({
-  apiKey: 'AIzaSyDymM4FTMKIInlZBzp2Em0j-8EPV2-UBPQ',
-  authDomain: 'crwn-clothing-57a8e.firebaseapp.com',
-  projectId: 'crwn-clothing-57a8e',
-  storageBucket: 'crwn-clothing-57a8e.firebasestorage.app',
-  messagingSenderId: '302746794693',
-  appId: '1:302746794693:web:e2ce0c0917578657a1ceac',
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: `${process.env.REACT_APP_FIREBASE_PROJECT_ID}.firebaseapp.com`,
+  projectId: `${process.env.REACT_APP_FIREBASE_PROJECT_ID}}`,
+  storageBucket: `${process.env.REACT_APP_FIREBASE_PROJECT_ID}.firebasestorage.app`,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
 });
 
 const provider = new GoogleAuthProvider();
@@ -56,6 +67,7 @@ export const createUserDocFromAuth = async (
 
   return userDocRef;
 };
+
 export const createAuthUserWithEmailAndPassword = async (
   email: string,
   password: string,
@@ -64,6 +76,7 @@ export const createAuthUserWithEmailAndPassword = async (
 
   return await createUserWithEmailAndPassword(auth, email, password);
 };
+
 export const signInAuthUserWithEmailAndPassword = async (
   email: string,
   password: string,
@@ -76,3 +89,37 @@ export const signInAuthUserWithEmailAndPassword = async (
 export const signOutUser = async (): Promise<void> => await signOut(auth);
 
 export const onAuthStateChangedListener = (callback: NextOrObserver<User>) => onAuthStateChanged(auth, callback);
+
+export const addCategoriesAndDocuments = async (
+  collectionKey: string,
+  objectsToAdd: [{ title: string; items: Product[] }],
+): Promise<void> => {
+  const collectionRef = collection(db, collectionKey);
+  const batch = writeBatch(db);
+
+  objectsToAdd.forEach((object) => {
+    const docRef = doc(collectionRef, object.title.toLowerCase());
+
+    batch.set(docRef, object);
+  });
+
+  await batch.commit();
+};
+
+export const getCategoriesAndDocuments = async (): Promise<{ [key: string]: Product[] }> => {
+  const collectionRef = collection(db, 'categories');
+  const collectionQuery = query(collectionRef);
+
+  const querySnapshot = await getDocs(collectionQuery);
+
+  return querySnapshot.docs.reduce(
+    (acc, docSnapshot) => {
+      const { title, items } = docSnapshot.data();
+
+      acc[title.toLowerCase()] = items;
+
+      return acc;
+    },
+    {} as { [key: string]: Product[] },
+  );
+};
