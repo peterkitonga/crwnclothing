@@ -1,6 +1,15 @@
 import * as path from 'path';
 
 module.exports = {
+  style: {
+    sass: {
+      loaderOptions: {
+        sassOptions: {
+          silenceDeprecations: ['legacy-js-api'],
+        },
+      },
+    },
+  },
   webpack: {
     alias: {
       '@assets': path.resolve(__dirname, './src/assets'),
