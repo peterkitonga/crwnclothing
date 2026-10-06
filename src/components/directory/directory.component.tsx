@@ -1,14 +1,44 @@
 import './directory.styles.scss';
-import { CategoryItem } from '@models/interfaces';
-import Category from '@components/category/category.component';
+import DirectoryItem from '@components/directory-item/directory-item.component';
 
-export default function Directory(props: { categories: CategoryItem[] }) {
-  const { categories } = props;
+export default function Directory() {
+  const directories = [
+    {
+      id: 1,
+      title: 'Hats',
+      imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
+      route: 'shop/hats',
+    },
+    {
+      id: 2,
+      title: 'Jackets',
+      imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
+      route: 'shop/jackets',
+    },
+    {
+      id: 3,
+      title: 'Sneakers',
+      imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
+      route: 'shop/sneakers',
+    },
+    {
+      id: 4,
+      title: "Women's",
+      imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
+      route: 'shop/womens',
+    },
+    {
+      id: 5,
+      title: "Men's",
+      imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
+      route: 'shop/mens',
+    },
+  ];
 
   return (
     <div className={'directory-container'}>
-      {categories.map((category) => (
-        <Category key={category.id} category={category}></Category>
+      {directories.map((directory) => (
+        <DirectoryItem key={directory.id} directory={directory}></DirectoryItem>
       ))}
     </div>
   );
