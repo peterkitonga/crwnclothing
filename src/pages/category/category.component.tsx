@@ -16,7 +16,7 @@ export default function Category() {
   }, [category, categoriesMap]);
 
   return (
-    <main className={'category-map-container'}>
+    <main className={'category-container'}>
       <h2 className={'title'}>{category!.toUpperCase()}</h2>
       <div className={'body'}>
         {products && products.map((product) => <ProductCard key={product.id} product={product} />)}
